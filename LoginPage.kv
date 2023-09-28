@@ -1,0 +1,34 @@
+# Ava Taylor
+
+Question1Screen
+<Question1Screen>:
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "What is the state fruit of Texas?"
+            size_hint: 1, .5
+        BoxLayout:
+            Button:
+                text: "Peach"
+            Button:
+                text: "Peach"
+            Button:
+                text: "Peach"
+
+<CorrectScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "Correct!"
+        Button:
+            text: "NEXT ->"
+            size_hint: 1, .5
+
+<ErrorScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "Wrong!"
+        Button:
+            text: "NEXT ->"
+            size_hint: 1, .5
