@@ -1,6 +1,16 @@
 # Ava Taylor
 
-Question1Screen
+<QuizManager>:
+    Question1Screen:
+        name: "q1"
+    CorrectScreen:
+        name: "correct"
+    ErrorScreen:
+        name: "error"
+    TextInputScreen:
+        name: "text input"
+
+
 <Question1Screen>:
     BoxLayout:
         orientation: "vertical"
@@ -10,10 +20,13 @@ Question1Screen
         BoxLayout:
             Button:
                 text: "Peach"
+                on_release: root.answer_question(False)
             Button:
-                text: "Peach"
+                text: "Grapefruit"
+                on_release: root.answer_question(True)
             Button:
-                text: "Peach"
+                text: "Orange"
+                on_release: root.answer_question(False)
 
 <CorrectScreen>:
     BoxLayout:
@@ -23,6 +36,7 @@ Question1Screen
         Button:
             text: "NEXT ->"
             size_hint: 1, .5
+            on_release: root.answer_question()
 
 <ErrorScreen>:
     BoxLayout:
@@ -32,3 +46,16 @@ Question1Screen
         Button:
             text: "NEXT ->"
             size_hint: 1, .5
+
+<TextInputScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "Complete the following verse: 'The stars at night are big and bright...'"
+            size_hint: 1, .5
+        TextInput:
+            id: heart
+            text_hint: "Enter remaining verse"
+        Button:
+            text: "ENTER"
+            on_release: root.answer_question(heart.text)
