@@ -1,0 +1,70 @@
+# Ava Taylor
+
+<QuizManager>:
+    Question1Screen:
+        name: "q1"
+    CorrectScreen:
+        name: "correct"
+    ErrorScreen:
+        name: "error"
+    TextInputScreen:
+        name: "text input"
+
+
+<Question1Screen>:
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "What is the state fruit of Texas?"
+            size_hint: 1, .5
+        BoxLayout:
+            Button:
+                text: "Peach"
+                on_release: root.answer_question(False)
+            Button:
+                text: "Grapefruit"
+                on_release: root.answer_question(True)
+            Button:
+                text: "Orange"
+                on_release: root.answer_question(False)
+
+<CorrectScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "Correct!"
+            size_hint: .5, 1
+            pos_hint: {"center_x":.5}
+        Button:
+            text: "ADVANCE ->"
+            size_hint: .5, 1
+            pos_hint: {"center_x":.5}
+            on_release: root.answer_question()
+
+<ErrorScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            text: "Wrong!"
+            size_hint: .5, 1
+            pos_hint: {"center_x":.5}
+        Button:
+            text: "ADVANCE ->"
+            size_hint: .5, 1
+            pos_hint: {"center_x":.5}
+
+<TextInputScreen>:
+    BoxLayout:
+        orientation: "vertical"
+        Label:
+            id: invalid_guess
+            text: "test (find a way to make this go away)"
+        Label:
+            text: "Complete the following verse: 'The stars at night are big and bright...'"
+            size_hint: 1, 7
+        TextInput:
+            id: heart
+            hint_text: "Enter remaining verse"
+        Button:
+            text: "ENTER"
+            on_release: root.answer_question(heart.text)

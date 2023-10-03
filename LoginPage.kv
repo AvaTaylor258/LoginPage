@@ -1,61 +1,45 @@
-# Ava Taylor
+<LoginManager>:
+    LoginPage:
+        name: "login"
+    WelcomePage:
+        name: "welcome"
 
-<QuizManager>:
-    Question1Screen:
-        name: "q1"
-    CorrectScreen:
-        name: "correct"
-    ErrorScreen:
-        name: "error"
-    TextInputScreen:
-        name: "text input"
-
-
-<Question1Screen>:
+<LoginPage>:
     BoxLayout:
         orientation: "vertical"
         Label:
-            text: "What is the state fruit of Texas?"
-            size_hint: 1, .5
+            text: ""
+            size_hint: 1, .25
+            id: invalid_creds_label
         BoxLayout:
-            Button:
-                text: "Peach"
-                on_release: root.answer_question(False)
-            Button:
-                text: "Grapefruit"
-                on_release: root.answer_question(True)
-            Button:
-                text: "Orange"
-                on_release: root.answer_question(False)
+            orientation: "horizontal"
+            BoxLayout:
+                orientation: "vertical"
+                Label:
+                    text: "Username"
+                    size_hint: 1, .25
+                    pos_hint: {"top": 0}
+                Label:
+                    text: "Password"
+                    size_hint: 1, .25
+                    pos_hint: {"top": 0}
+            BoxLayout:
+                orientation: "vertical"
+                TextInput:
+                    id: username
+                TextInput:
+                    id: password
+                Button:
+                    text: "Register New Account"
+                    color: "red"
+                Button:
+                    text: "Enter"
+                    onrelease: root.verify_creds(username.text, password.text)
 
-<CorrectScreen>:
+<WelcomePage>:
     BoxLayout:
         orientation: "vertical"
         Label:
-            text: "Correct!"
+            text: "Welcome"
         Button:
-            text: "NEXT ->"
-            size_hint: 1, .5
-            on_release: root.answer_question()
-
-<ErrorScreen>:
-    BoxLayout:
-        orientation: "vertical"
-        Label:
-            text: "Wrong!"
-        Button:
-            text: "NEXT ->"
-            size_hint: 1, .5
-
-<TextInputScreen>:
-    BoxLayout:
-        orientation: "vertical"
-        Label:
-            text: "Complete the following verse: 'The stars at night are big and bright...'"
-            size_hint: 1, .5
-        TextInput:
-            id: heart
-            text_hint: "Enter remaining verse"
-        Button:
-            text: "ENTER"
-            on_release: root.answer_question(heart.text)
+            text: "Logout"
