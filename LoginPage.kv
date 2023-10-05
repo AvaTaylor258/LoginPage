@@ -3,45 +3,85 @@
         name: "login"
     WelcomePage:
         name: "welcome"
+    RegisterPage:
+        name: "register"
 
 <LoginPage>:
     BoxLayout:
         orientation: "vertical"
+        padding: 275
         Label:
             text: ""
             size_hint: 1, .25
             id: invalid_creds_label
-        BoxLayout:
-            orientation: "horizontal"
-            BoxLayout:
-                orientation: "vertical"
-                Label:
-                    text: "Username"
-                    size_hint: 1, .25
-                    pos_hint: {"top": 0}
-                Label:
-                    text: "Password"
-                    size_hint: 1, .25
-                    pos_hint: {"top": 0}
-            BoxLayout:
-                orientation: "vertical"
-                TextInput:
-                    id: username
-                TextInput:
-                    id: password
-                Button:
-                    text: "Register New Account"
-                    color: "red"
-                Button:
-                    text: "Enter"
-                    onrelease: root.verify_creds(username.text, password.text)
+        GridLayout:
+            columns: 2
+            rows: 4
+            Label:
+                text: "Username"
+                size_hint: 1, .25
+                pos_hint: {"top": 0}
+            TextInput:
+                id: username
+            Label:
+                text: "Password"
+                size_hint: 1, .25
+                pos_hint: {"top": 0}
+            TextInput:
+                id: password
+            Label:
+                text: ""
+            Button:
+                text: "Register New Account"
+                color: "red"
+                on_release: root.go_to_register()
+            Label:
+                text: ""
+            Button:
+                text: "Enter"
+                on_release: root.verify_creds(username.text, password.text)
 
 <WelcomePage>:
     BoxLayout:
+        padding: 275
         orientation: "vertical"
         Label:
             text: "Welcome"
         Button:
             text: "Logout"
+            on_release: root.go2login()
 
-# !
+<RegisterPage>:
+    BoxLayout:
+        orientation: "vertical"
+        padding: 100
+        GridLayout:
+            size_hint: .6, .3
+            pos_hint: {"center_x":.5}
+            columns: 2
+            rows: 3
+            Label:
+                text: "Enter New Username"
+            TextInput:
+                id: new_user
+            Label:
+                text: "Enter New Password"
+            TextInput:
+                id: new_pass
+            Label:
+                text: "Reenter New Password"
+            TextInput:
+                id: new_pass2
+        Label:
+            text: "Password must contain at least one:\n - capitalized letter (ex. ABC...XYZ\n - lowercase letter (ex. abc...xyz)\n - number (1234567890)\n - special character (i.e. ~!@#$%^&*()?)\n - passwords must match\n - passwords must be at least 8 characters in length"
+        GridLayout:
+            size_hint: .6, .3
+            pos_hint: {"center_x":.5}
+            columns: 2
+            rows: 1
+            Label:
+                text: ""
+                id: lol_thing
+            Button:
+                text: "Enter"
+                on_release: root.verify_new_user(new_user.text, new_pass.text, new_pass2.text)

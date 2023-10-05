@@ -1,5 +1,6 @@
-# # Ava Taylor !
+# # Ava Taylor
 #
+
 from kivy.app import App
 from kivy.lang import Builder
 from kivy.uix.screenmanager import ScreenManager, Screen
@@ -41,13 +42,17 @@ from kivy.uix.screenmanager import ScreenManager, Screen
 #
 # LoginPageApp().run()
 
-creds_dict: {}
+users = {
+    "user": "pass"
+}
 
 Builder.load_file("LoginPage.kv")
+
 
 class LoginPageApp(App):
     def build(self):
         return LoginManager()
+
 
 class LoginManager(ScreenManager):
     pass
@@ -55,15 +60,58 @@ class LoginManager(ScreenManager):
 
 class LoginPage(Screen):
     def verify_creds(self, username, password):
-        if username in creds_dict and password == creds_dict["username"]:
+        if password == users[username]:
             self.manager.current = "welcome"
         else:
             self.ids.invalid_creds_label.text = "Invalid Credentials"
-            # make text red
+            self.ids.invalid_creds_label.color = "red"
+
+    def go_to_register(self):
+        self.manager.current = "register"
 
 
 class WelcomePage(Screen):
-    pass
+    def go2login(self):
+        self.manager.current = "login"
+
+
+class RegisterPage(Screen):
+    def verify_new_user(self, username, password, password2):
+        og_username = False
+        same_passwords = False
+        uppercase_in_pass = False
+        lowercase_in_pass = False
+        number_in_pass = False
+        special_in_pass = False
+        pass_len = False
+        if username not in users:
+            og_username = True
+        if password == password2:
+            same_passwords = True
+        for i in "ABCDEFGHIJKLMNOPQRSTUVWXY":
+            if i in password:
+                uppercase_in_pass = True
+                break
+        for i in "abcdefghijklmnopqrstuvwxyz":
+            if i in password:
+                lowercase_in_pass = True
+                break
+        for i in "1234567890":
+            if i in password:
+                number_in_pass = True
+                break
+        for i in "~!@#$%^&*()?":
+            if i in password:
+                special_in_pass = True
+                break
+        if len(password) >= 8:
+            pass_len = True
+        if og_username and same_passwords and uppercase_in_pass and lowercase_in_pass and number_in_pass and special_in_pass and pass_len:
+            users[username] = password
+            self.manager.current = "login"
+        else:
+            self.ids.lol_thing.text = "Username Already Taken\nor\nInvalid Password(s)"
+            self.ids.lol_thing.color = "red"
 
 
 LoginPageApp().run()
